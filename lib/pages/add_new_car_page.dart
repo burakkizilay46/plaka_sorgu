@@ -27,11 +27,12 @@ class AddNewCarPage extends StatelessWidget {
             child: ListView(
               children: [
                 Text('Araç Bilgilerini Giriniz', style: context.bigTextStyle),
-                Divider(),
-                SizedBox(height: 12),
+                const Divider(),
+                const SizedBox(height: 12),
                 TextFormField(
                     decoration: InputDecoration(
-                        label: Text('Plaka'), border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
+                        label: const Text('Plaka'),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Plaka boş olamaz';
@@ -40,10 +41,11 @@ class AddNewCarPage extends StatelessWidget {
                     },
                     onSaved: (value) => newCar.plate = value),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
                   child: TextFormField(
                       decoration: InputDecoration(
-                          label: Text('Marka'), border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
+                          label: const Text('Marka'),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Marka boş olamaz';
@@ -54,7 +56,7 @@ class AddNewCarPage extends StatelessWidget {
                 ),
                 TextFormField(
                     decoration: InputDecoration(
-                        label: Text('Renk'), border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
+                        label: const Text('Renk'), border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Renk boş olamaz';
@@ -63,10 +65,11 @@ class AddNewCarPage extends StatelessWidget {
                     },
                     onSaved: (value) => newCar.color = value),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
                     child: TextFormField(
                         decoration: InputDecoration(
-                            label: Text('Sahip'), border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
+                            label: const Text('Sahip'),
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Sahip boş olamaz';
