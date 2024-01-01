@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _searchController = TextEditingController();
+    TextEditingController searchController = TextEditingController();
     List<Car> cars = [Car(id: 1, plate: '31R0301', brand: 'Ford Focus', color: 'Gümüş Gri', owner: 'Polis Mustafa')];
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
               Flexible(
                 flex: 2,
                 child: CustomTextField(
-                  controller: _searchController,
+                  controller: searchController,
                   labelText: 'Plaka Ara',
                 ),
               ),
@@ -67,7 +67,7 @@ class CarInfoCustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      key: ValueKey(1),
+      key: const ValueKey(1),
       child: Column(children: [
         Text(
           '${car.plate}',
@@ -76,7 +76,7 @@ class CarInfoCustomCard extends StatelessWidget {
         Visibility(
             child: Column(
           children: [
-            Divider(),
+            const Divider(),
             Text(
               '${car.owner}',
               style: context.normalTextStyle,
