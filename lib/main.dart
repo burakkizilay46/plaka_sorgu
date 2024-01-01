@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:plaka_sorgu/pages/home_page.dart';
+import 'package:plaka_sorgu/provider/car_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(create: (context) => CarProvider(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

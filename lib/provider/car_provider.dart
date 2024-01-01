@@ -15,13 +15,15 @@ class CarProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addCar(Car car) async {
+  Future<void> addCar(Car car) async {
     await DatabaseHelper.instance.insertCar(car);
+    _loadCars();
     notifyListeners();
   }
 
   void deleteCar(int id) async {
     await DatabaseHelper.instance.deleteCar(id);
+    _loadCars();
     notifyListeners();
   }
 }

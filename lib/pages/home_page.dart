@@ -5,6 +5,8 @@ import 'package:plaka_sorgu/components/custom_text_field.dart';
 import 'package:plaka_sorgu/extensions/context_extensions.dart';
 import 'package:plaka_sorgu/model/car_model.dart';
 import 'package:plaka_sorgu/pages/add_new_car_page.dart';
+import 'package:plaka_sorgu/provider/car_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,7 +14,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
-    List<Car> cars = [Car(id: 1, plate: '31R0301', brand: 'Ford Focus', color: 'Gümüş Gri', owner: 'Polis Mustafa')];
+    /* List<Car> cars = [Car(id: 1, plate: '31R0301', brand: 'Ford Focus', color: 'Gümüş Gri', owner: 'Polis Mustafa')]; */
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -42,13 +44,22 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Flexible(
-                flex: 12,
-                child: ListView.builder(itemBuilder: (context, index) {
-                  return CarInfoCustomCard(
-                    car: cars[0],
-                  );
-                }),
-              )
+                  flex: 12,
+                  child: Consumer<CarProvider>(
+                    builder: (context, carProvider, child) {
+                      List<Car> cars = carProvider.cars;
+                      return cars.isEmpty
+                          ? Center(
+                              child: Text(
+                                'Lütfen Araç Ekleyin!',
+                                style: context.normalTextStyle,
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount: cars.length,
+                              itemBuilder: (context, index) => (CarInfoCustomCard(car: cars[index])));
+                    },
+                  )),
             ],
           ),
         ),

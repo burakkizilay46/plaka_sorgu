@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:plaka_sorgu/extensions/context_extensions.dart';
 import 'package:plaka_sorgu/model/car_model.dart';
+import 'package:plaka_sorgu/provider/car_provider.dart';
+import 'package:provider/provider.dart';
 
 class AddNewCarPage extends StatelessWidget {
   AddNewCarPage({super.key});
@@ -78,10 +80,11 @@ class AddNewCarPage extends StatelessWidget {
                         },
                         onSaved: (value) => newCar.owner = value)),
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (formKey.currentState?.validate() ?? false) {
                         formKey.currentState?.save();
-                        print(newCar.toMap());
+                        CarProvider carProvider = Provider.of<CarProvider>(context, listen: false);
+                        await carProvider.addCar(newCar).then((value) => Navigator.pop(context));
                       }
                     },
                     child: Text(
