@@ -1,12 +1,10 @@
-import 'dart:html';
-
 import 'package:plaka_sorgu/model/car_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DatabaseHelper {
   static Database? _database;
-  static final String tableName = 'cars';
+  static const String tableName = 'cars';
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
