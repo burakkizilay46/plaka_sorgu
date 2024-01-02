@@ -77,32 +77,35 @@ class CarInfoCustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      key: const ValueKey(1),
-      child: Column(children: [
-        Text(
-          '${car.plate}',
-          style: context.bigTextStyle,
-        ),
-        Visibility(
-            child: Column(
-          children: [
-            const Divider(),
-            Text(
-              '${car.owner}',
-              style: context.normalTextStyle,
-            ),
-            Text(
-              '${car.brand}',
-              style: context.normalTextStyle,
-            ),
-            Text(
-              '${car.color}',
-              style: context.normalTextStyle,
-            ),
-          ],
-        ))
-      ]),
+    return Dismissible(
+      key: ValueKey(car.id),
+      child: Card(
+        key: ValueKey(car.id),
+        child: Column(children: [
+          Text(
+            '${car.plate}',
+            style: context.bigTextStyle,
+          ),
+          Visibility(
+              child: Column(
+            children: [
+              const Divider(),
+              Text(
+                '${car.owner}',
+                style: context.normalTextStyle,
+              ),
+              Text(
+                '${car.brand}',
+                style: context.normalTextStyle,
+              ),
+              Text(
+                '${car.color}',
+                style: context.normalTextStyle,
+              ),
+            ],
+          ))
+        ]),
+      ),
     );
   }
 }

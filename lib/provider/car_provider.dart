@@ -6,6 +6,9 @@ class CarProvider extends ChangeNotifier {
   List<Car> _cars = [];
   List<Car> get cars => _cars;
 
+  bool _isHave = false;
+  bool get isHave => _isHave;
+
   CarProvider() {
     _loadCars();
   }
@@ -15,10 +18,18 @@ class CarProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void controlIsHaveCar(Car car) async {
+    _isHave = _cars.where((element) => element.plate == car.plate).isNotEmpty;
+  }
+
   Future<void> addCar(Car car) async {
-    await DatabaseHelper.instance.insertCar(car);
-    _loadCars();
+    if (!_isHave) {
+      await DatabaseHelper.instance.insertCar(car);
+      _loadCars();
+    }
+
     notifyListeners();
+    _isHave = false;
   }
 
   void deleteCar(int id) async {

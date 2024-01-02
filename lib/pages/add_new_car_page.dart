@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:plaka_sorgu/components/custom_info_popup.dart';
 
 import 'package:plaka_sorgu/extensions/context_extensions.dart';
 import 'package:plaka_sorgu/model/car_model.dart';
@@ -84,7 +85,12 @@ class AddNewCarPage extends StatelessWidget {
                       if (formKey.currentState?.validate() ?? false) {
                         formKey.currentState?.save();
                         CarProvider carProvider = Provider.of<CarProvider>(context, listen: false);
-                        await carProvider.addCar(newCar).then((value) => Navigator.pop(context));
+                        carProvider.controlIsHaveCar(newCar);
+                        if (carProvider.isHave) {
+                          showInfoDialog(context);
+                        } else {
+                          await carProvider.addCar(newCar).then((value) => Navigator.pop(context));
+                        }
                       }
                     },
                     child: Text(
