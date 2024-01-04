@@ -23,10 +23,13 @@ Uygulama, local bir veritabanı kullanmaktadır. Bu veritabanı sadece kullanıc
 
 ## Ekran Görüntüleri
 
-![Screenshot 1](screenshots/1.png)
-![Screenshot 2](screenshots/2.png)
-![Screenshot 3](screenshots/3.png)
-![Screenshot 4](screenshots/4.png)
-![Screenshot 5](screenshots/5.png)
-![Screenshot 6](screenshots/6.png)
-![Screenshot 7](screenshots/7.png)
+<div style="display: flex; justify-content: space-between; gap: 20px;">
+  <img src="screenshots/1.png" alt="Screenshot 1" width="400"/>
+  <img src="screenshots/2.png" alt="Screenshot 1" width="400"/>
+  <img src="screenshots/3.png" alt="Screenshot 1" width="400"/>
+  <img src="screenshots/4.png" alt="Screenshot 2" width="400"/>
+  <img src="screenshots/5.png" alt="Screenshot 2" width="400"/>
+  <img src="screenshots/6.png" alt="Screenshot 2" width="400"/>
+  <img src="screenshots/7.png" alt="Screenshot 2" width="400"/>
+  <!-- Buraya diğer ekran görüntüleri eklenir -->
+</div>
