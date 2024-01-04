@@ -5,6 +5,11 @@ import 'package:plaka_sorgu/model/car_model.dart';
 class CarProvider extends ChangeNotifier {
   List<Car> _cars = [];
   List<Car> get cars => _cars;
+  List<Car> _filteredCars = [];
+  List<Car> get filteredCars => _filteredCars;
+
+  bool _isFilter = false;
+  bool get isFilter => _isFilter;
 
   bool _isHave = false;
   bool get isHave => _isHave;
@@ -39,6 +44,16 @@ class CarProvider extends ChangeNotifier {
 
   Future<void> updateCar(Car updatedCar) async {
     await DatabaseHelper.instance.updateCar(updatedCar);
+    notifyListeners();
+  }
+
+  void filterCars(String plate) {
+    if (plate.isEmpty) {
+      _isFilter = false;
+    } else {
+      _isFilter = true;
+      _filteredCars = cars.where((element) => element.plate!.contains(plate)).toList();
+    }
     notifyListeners();
   }
 }

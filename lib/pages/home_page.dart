@@ -38,9 +38,15 @@ class HomePage extends StatelessWidget {
               children: [
                 Flexible(
                   flex: 2,
-                  child: CustomTextField(
+                  child: TextField(
                     controller: searchController,
-                    labelText: 'Plaka Ara',
+                    decoration: InputDecoration(
+                      label: Text('Plaka Ara'),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                    ),
+                    onChanged: (value) {
+                      Provider.of<CarProvider>(context, listen: false).filterCars(value);
+                    },
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -48,20 +54,28 @@ class HomePage extends StatelessWidget {
                     flex: 12,
                     child: Consumer<CarProvider>(
                       builder: (context, carProvider, child) {
-                        List<Car> cars = carProvider.cars;
-                        return cars.isEmpty
-                            ? Center(
-                                child: Text(
-                                  'Lütfen Araç Ekleyin!',
-                                  style: context.normalTextStyle,
-                                ),
-                              )
-                            : ListView.builder(
-                                itemCount: cars.length,
-                                itemBuilder: (context, index) => CarInfoCustomCard(
-                                      car: cars[index],
-                                      provider: carProvider,
-                                    ));
+                        List<Car> cars = carProvider.isFilter ? carProvider.filteredCars : carProvider.cars;
+                        if (cars.isEmpty && !carProvider.isFilter) {
+                          return Center(
+                            child: Text(
+                              'Lütfen Araç Ekleyin!',
+                              style: context.normalTextStyle,
+                            ),
+                          );
+                        } else if (cars.isEmpty && carProvider.isFilter) {
+                          return Center(
+                              child: Text(
+                            'Araç bulunamadı!',
+                            style: context.bigTextStyle,
+                          ));
+                        } else {
+                          return ListView.builder(
+                              itemCount: cars.length,
+                              itemBuilder: (context, index) => CarInfoCustomCard(
+                                    car: cars[index],
+                                    provider: carProvider,
+                                  ));
+                        }
                       },
                     )),
               ],
