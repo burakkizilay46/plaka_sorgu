@@ -85,7 +85,9 @@ class CarInfoCustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: () {},
+      onLongPress: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewCarPage(selectedCar: car)));
+      },
       child: Dismissible(
         confirmDismiss: (direction) => showConfirmationDialog(context, 'DİKKAT!', 'Silmek istediğinize emin misiniz?'),
         onDismissed: (direction) async {

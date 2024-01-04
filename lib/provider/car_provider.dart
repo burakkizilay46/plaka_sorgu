@@ -36,4 +36,9 @@ class CarProvider extends ChangeNotifier {
     await DatabaseHelper.instance.deleteCar(car.id!).then((value) => _loadCars());
     notifyListeners();
   }
+
+  Future<void> updateCar(Car updatedCar) async {
+    await DatabaseHelper.instance.updateCar(updatedCar);
+    notifyListeners();
+  }
 }

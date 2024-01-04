@@ -8,18 +8,22 @@ import 'package:plaka_sorgu/provider/car_provider.dart';
 import 'package:provider/provider.dart';
 
 class AddNewCarPage extends StatelessWidget {
-  AddNewCarPage({super.key});
+  final Car? selectedCar;
+  AddNewCarPage({super.key, this.selectedCar});
 
   final formKey = GlobalKey<FormState>();
 
+  Future<void> updateSelectedCar() async {}
+
   @override
   Widget build(BuildContext context) {
-    final Car newCar = Car();
+    final Car newCar = selectedCar ?? Car();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.appBlack,
         centerTitle: true,
-        title: Text('Yeni Arac Ekle', style: context.normalTextStyle.copyWith(color: context.appWhite)),
+        title: Text(selectedCar == null ? 'Yeni Araç Ekle' : 'Araç Düzenle',
+            style: context.normalTextStyle.copyWith(color: context.appWhite)),
         iconTheme: IconThemeData(color: context.appWhite),
       ),
       body: Center(
@@ -29,10 +33,12 @@ class AddNewCarPage extends StatelessWidget {
             key: formKey,
             child: ListView(
               children: [
-                Text('Araç Bilgilerini Giriniz', style: context.bigTextStyle),
+                Text(selectedCar == null ? 'Araç Bilgilerini Giriniz' : 'Seçilen Aracı Güncelle',
+                    style: context.bigTextStyle),
                 const Divider(),
                 const SizedBox(height: 12),
                 TextFormField(
+                    initialValue: newCar.plate,
                     decoration: InputDecoration(
                         label: const Text('Plaka'),
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
@@ -46,6 +52,7 @@ class AddNewCarPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: TextFormField(
+                      initialValue: newCar.brand,
                       decoration: InputDecoration(
                           label: const Text('Marka'),
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
@@ -58,6 +65,7 @@ class AddNewCarPage extends StatelessWidget {
                       onSaved: (value) => newCar.brand = value),
                 ),
                 TextFormField(
+                    initialValue: newCar.color,
                     decoration: InputDecoration(
                         label: const Text('Renk'), border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
                     validator: (value) {
@@ -70,6 +78,7 @@ class AddNewCarPage extends StatelessWidget {
                 Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: TextFormField(
+                        initialValue: newCar.owner,
                         decoration: InputDecoration(
                             label: const Text('Sahip'),
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
@@ -85,7 +94,7 @@ class AddNewCarPage extends StatelessWidget {
                       backgroundColor: MaterialStateProperty.all(context.appBlack),
                     ),
                     onPressed: () async {
-                      if (formKey.currentState?.validate() ?? false) {
+                      if (selectedCar == null && formKey.currentState!.validate() ?? false) {
                         formKey.currentState?.save();
                         CarProvider carProvider = Provider.of<CarProvider>(context, listen: false);
                         carProvider.controlIsHaveCar(newCar);
@@ -93,6 +102,12 @@ class AddNewCarPage extends StatelessWidget {
                           showInfoDialog(context);
                         } else {
                           await carProvider.addCar(newCar).then((value) => Navigator.pop(context));
+                        }
+                      } else {
+                        if (formKey.currentState?.validate() ?? false) {
+                          formKey.currentState?.save();
+                          CarProvider carProvider = Provider.of<CarProvider>(context, listen: false);
+                          await carProvider.updateCar(newCar).then((value) => Navigator.pop(context));
                         }
                       }
                     },
