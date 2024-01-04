@@ -81,6 +81,9 @@ class AddNewCarPage extends StatelessWidget {
                         },
                         onSaved: (value) => newCar.owner = value)),
                 ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(context.appBlack),
+                    ),
                     onPressed: () async {
                       if (formKey.currentState?.validate() ?? false) {
                         formKey.currentState?.save();
@@ -95,7 +98,7 @@ class AddNewCarPage extends StatelessWidget {
                     },
                     child: Text(
                       'Bilgileri Kaydet',
-                      style: context.normalTextStyle,
+                      style: context.normalTextStyle.copyWith(color: context.appWhite),
                     ))
               ],
             ),
