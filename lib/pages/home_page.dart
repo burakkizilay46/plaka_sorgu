@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:plaka_sorgu/components/custom_confirm_popup.dart';
 
-import 'package:plaka_sorgu/components/custom_text_field.dart';
 import 'package:plaka_sorgu/extensions/context_extensions.dart';
 import 'package:plaka_sorgu/model/car_model.dart';
 import 'package:plaka_sorgu/pages/add_new_car_page.dart';
@@ -38,51 +37,54 @@ class HomePage extends StatelessWidget {
               children: [
                 Flexible(
                   flex: 2,
-                  child: TextField(
-                    controller: searchController,
-                    decoration: InputDecoration(
-                      label: Text('Plaka Ara'),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                    ),
-                    onChanged: (value) {
-                      Provider.of<CarProvider>(context, listen: false).filterCars(value);
-                    },
-                  ),
+                  child: searchTextField(searchController, context),
                 ),
                 const SizedBox(height: 12),
                 Flexible(
-                    flex: 12,
-                    child: Consumer<CarProvider>(
-                      builder: (context, carProvider, child) {
-                        List<Car> cars = carProvider.isFilter ? carProvider.filteredCars : carProvider.cars;
-                        if (cars.isEmpty && !carProvider.isFilter) {
-                          return Center(
-                            child: Text(
-                              'Lütfen Araç Ekleyin!',
-                              style: context.normalTextStyle,
-                            ),
-                          );
-                        } else if (cars.isEmpty && carProvider.isFilter) {
-                          return Center(
-                              child: Text(
-                            'Araç bulunamadı!',
-                            style: context.bigTextStyle,
-                          ));
-                        } else {
-                          return ListView.builder(
-                              itemCount: cars.length,
-                              itemBuilder: (context, index) => CarInfoCustomCard(
-                                    car: cars[index],
-                                    provider: carProvider,
-                                  ));
-                        }
-                      },
-                    )),
+                  flex: 12,
+                  child: carsConsumer(),
+                ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Consumer<CarProvider> carsConsumer() {
+    return Consumer<CarProvider>(
+      builder: (context, carProvider, child) {
+        List<Car> cars = carProvider.isFilter ? carProvider.filteredCars : carProvider.cars;
+        if (cars.isEmpty && !carProvider.isFilter) {
+          return Center(
+            child: Text('Lütfen Araç Ekleyin!', style: context.normalTextStyle),
+          );
+        } else if (cars.isEmpty && carProvider.isFilter) {
+          return Center(
+              child: Text(
+            'Araç bulunamadı!',
+            style: context.bigTextStyle,
+          ));
+        } else {
+          return ListView.builder(
+              itemCount: cars.length,
+              itemBuilder: (context, index) => CarInfoCustomCard(car: cars[index], provider: carProvider));
+        }
+      },
+    );
+  }
+
+  TextField searchTextField(TextEditingController searchController, BuildContext context) {
+    return TextField(
+      controller: searchController,
+      decoration: InputDecoration(
+        label: const Text('Plaka Ara'),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+      ),
+      onChanged: (value) {
+        Provider.of<CarProvider>(context, listen: false).filterCars(value);
+      },
     );
   }
 }
