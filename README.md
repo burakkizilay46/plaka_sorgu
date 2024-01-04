@@ -24,12 +24,12 @@ Uygulama, local bir veritabanı kullanmaktadır. Bu veritabanı sadece kullanıc
 ## Ekran Görüntüleri
 
 <div style="display: flex; justify-content: space-between; gap: 20px;">
-  <img src="screenshots/1.png" alt="Screenshot 1" width="400"/>
-  <img src="screenshots/2.png" alt="Screenshot 1" width="400"/>
-  <img src="screenshots/3.png" alt="Screenshot 1" width="400"/>
-  <img src="screenshots/4.png" alt="Screenshot 2" width="400"/>
-  <img src="screenshots/5.png" alt="Screenshot 2" width="400"/>
-  <img src="screenshots/6.png" alt="Screenshot 2" width="400"/>
-  <img src="screenshots/7.png" alt="Screenshot 2" width="400"/>
+  <img src="screenshots/1.png" alt="Screenshot 1" width="200"/>
+  <img src="screenshots/2.png" alt="Screenshot 1" width="200"/>
+  <img src="screenshots/3.png" alt="Screenshot 1" width="200"/>
+  <img src="screenshots/4.png" alt="Screenshot 2" width="200"/>
+  <img src="screenshots/5.png" alt="Screenshot 2" width="200"/>
+  <img src="screenshots/6.png" alt="Screenshot 2" width="200"/>
+  <img src="screenshots/7.png" alt="Screenshot 2" width="200"/>
   <!-- Buraya diğer ekran görüntüleri eklenir -->
 </div>
